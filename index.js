@@ -1,4 +1,4 @@
-var api_prefix = 'https://job-api.en.flant-site.test.flant.com';
+var api_prefix = 'https://job-api.flant.ru';
 function prepareApplicantData(data, $form) {      
     var applicantData = {};
     if (data.fields.hasOwnProperty('name') && data.fields.name != null) {
