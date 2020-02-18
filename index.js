@@ -41,7 +41,7 @@ function prepareApplicantData(data, $form) {
 }
 
 var formNotificationTimeout;
-function sendForm($form) {
+function sendForm($form) {    
     var fileFormData = new FormData();
     fileFormData.append('file', $form.find('[name="file"]')[0].files[0]);        
     var $formNotification = $form.find('.hr-form__notification');
@@ -114,7 +114,7 @@ function sendForm($form) {
                 });  
             },
             error: function() {
-                console.log('file upload failed');
+                console.log('file upload failed');                
                 $form.addClass('error');
             }
         });                                  
@@ -124,12 +124,19 @@ function sendForm($form) {
         formNotificationTimeout = setTimeout(function(){ 
             $formNotification.slideUp();
         }, 10000);                        
-    }
+    }    
 }
 
 $(document).on('click tap', '.hr-form-submit', function(e) {
     e.preventDefault();
-    sendForm($(this).closest('.hr-form'));
+    var $form = $(this).closest('.hr-form');
+    try {        
+        sendForm($form);
+    } catch (err) {
+        $form.addClass('sent');
+        $form.addClass('error');
+        console.log(err);    
+    }
 });
 
 $(document).on('click tap', '.hr-form__upload .hr-form__button', function(e) {

@@ -15,7 +15,7 @@
   <title>HRWORKFLOW</title>
   <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous"/>
   <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-colorpicker/2.5.3/css/bootstrap-colorpicker.min.css" rel="stylesheet"/>  
-  <link href="main.css" rel="stylesheet"/>  
+  <link href="main.css" rel="stylesheet"/>
   <script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-colorpicker/2.5.3/js/bootstrap-colorpicker.min.js"></script>  
   <style>
@@ -40,10 +40,6 @@
                             <div class="form-group">
                                 <laber>Id статуса:</laber>
                                 <input type="text" class="form-control" id="status_id" value="74031" />
-                            </div>
-                            <div class="form-group">
-                                <laber>Цвет фона:</laber>
-                                <input type="text" class="form-control" id="form_bg_color" data-colorpicker value="#fff" />
                             </div>
                             <div class="form-group">
                                 <laber>Цвет кнопок:</laber>
@@ -72,7 +68,8 @@
                 </div>
                 <h3 class="mt-2">Код (js+css)</h3>
                 <div class="form-group">
-                    <textarea class="form-control" id="form_code_jscss" rows="2"></textarea>
+                    <textarea class="form-control" id="form_code_jscss" rows="2"><link href="https://raw.githack.com/valent-ex/hrworkflow/master/main.css" rel="stylesheet"/>
+<script src="https://raw.githack.com/valent-ex/hrworkflow/master/index.js"></script></textarea>
                 </div>
             </div>
         </div>        
@@ -86,7 +83,6 @@
             var form_html = $('#form_source_html').html();
             form_html = replaceAll(form_html, '$button_bg_color$', $('#form_button_bg_color').val());
             form_html = replaceAll(form_html, '$label_color$', $('#form_label_color').val());
-            form_html = replaceAll(form_html, '$form_bg_color$', $('#form_bg_color').val());
             form_html = replaceAll(form_html, '$form_padding$', $('#form_padding').val());
             form_html = replaceAll(form_html, '$vacancy_id$', $('#vacancy_id').val());
             form_html = replaceAll(form_html, '$status_id$', $('#status_id').val());
@@ -101,7 +97,7 @@
         
     </script>
     
-    <script type="text/plain" id="form_source_html"><form class="hr-form" style="background-color: $form_bg_color$; padding: $form_padding$px 0px;" data-vacancy-id="$vacancy_id$" data-status-id="$status_id$">
+    <script type="text/plain" id="form_source_html"><form class="hr-form" style="padding: $form_padding$px 0px;" data-vacancy-id="$vacancy_id$" data-status-id="$status_id$">
     <div class="hr-form__content">    
         <div class="hr-form__group">
             <label class="hr-form__label" style="color: $label_color$">E-mail или другой контакт</label>

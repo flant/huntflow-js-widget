@@ -115,8 +115,13 @@
     text-align: center;
 }
 .hr-form__message a {
-    color: #ff8562;
-}  
+    color: inherit;
+    text-decoration: underline;
+
+}
+.hr-form__message a:hover {
+    text-decoration: none;
+}
 .hr-form__success, .hr-form__error {
     display: none;
 }
