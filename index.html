@@ -1,0 +1,139 @@
+<!-- 
+    Vacancy ID
+    2472372 – DevOps 
+    2498531 – L1
+    2500960 - JR Manager
+    2500959 – Manager
+    Status ID
+    74031
+-->
+
+<html lang="ru">
+
+<head>
+  <meta charset="utf-8">
+  <title>HRWORKFLOW</title>
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous"/>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-colorpicker/2.5.3/css/bootstrap-colorpicker.min.css" rel="stylesheet"/>  
+  <link href="main.css" rel="stylesheet"/>  
+  <script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-colorpicker/2.5.3/js/bootstrap-colorpicker.min.js"></script>  
+  <style>
+      #form_code {
+          display: block;
+      }
+  </style>
+</head>
+
+<body>
+    <div class="container mt-3">
+        <div class="row">
+            <div class="col-3">
+                <h3 class="mt-2">Настройки</h3>
+                <div class="card">
+                    <div class="card-body">                        
+                        <form>
+                            <div class="form-group">
+                                <laber>Id вакансии:</laber>
+                                <input type="text" class="form-control" id="vacancy_id" />
+                            </div>
+                            <div class="form-group">
+                                <laber>Id статуса:</laber>
+                                <input type="text" class="form-control" id="status_id" value="74031" />
+                            </div>
+                            <div class="form-group">
+                                <laber>Цвет фона:</laber>
+                                <input type="text" class="form-control" id="form_bg_color" data-colorpicker value="#fff" />
+                            </div>
+                            <div class="form-group">
+                                <laber>Цвет кнопок:</laber>
+                                <input type="text" class="form-control" id="form_button_bg_color" data-colorpicker value="#000" />
+                            </div>
+                            <div class="form-group">
+                                <laber>Цвет лейблов:</laber>
+                                <input type="text" class="form-control" id="form_label_color" data-colorpicker value="#666" />
+                            </div>
+                            <div class="form-group">
+                                <laber>Паддинг:</laber>
+                                <input type="number" class="form-control" id="form_padding" value="30" />
+                            </div>
+                        </form>
+                    </div>
+                </div>                
+            </div>
+            <div class="col-9">
+                <h3 class="mt-2">Превью</h3>
+                <div class="card">
+                    <div class="card-body" id="form_demo"></div>
+                </div>
+                <h3 class="mt-2">Код (html)</h3>
+                <div class="form-group">
+                    <textarea class="form-control" id="form_code_html" rows="10"></textarea>
+                </div>
+                <h3 class="mt-2">Код (js+css)</h3>
+                <div class="form-group">
+                    <textarea class="form-control" id="form_code_jscss" rows="2"></textarea>
+                </div>
+            </div>
+        </div>        
+    </div>        
+    <script>
+        var form_jscss;
+        function replaceAll(target, search, replace) {
+            return target.split(search).join(replace);
+        }        
+        function generateForm() {
+            var form_html = $('#form_source_html').html();
+            form_html = replaceAll(form_html, '$button_bg_color$', $('#form_button_bg_color').val());
+            form_html = replaceAll(form_html, '$label_color$', $('#form_label_color').val());
+            form_html = replaceAll(form_html, '$form_bg_color$', $('#form_bg_color').val());
+            form_html = replaceAll(form_html, '$form_padding$', $('#form_padding').val());
+            form_html = replaceAll(form_html, '$vacancy_id$', $('#vacancy_id').val());
+            form_html = replaceAll(form_html, '$status_id$', $('#status_id').val());
+            $('#form_code_html').text(form_html);
+            $('#form_demo').html(form_html);
+        }
+        $(document).ready(function() {
+            $('[data-colorpicker]').colorpicker();
+            $('.form-control').on('change', function() {generateForm();});
+            generateForm();
+        });
+        
+    </script>
+    
+    <script type="text/plain" id="form_source_html"><form class="hr-form" style="background-color: $form_bg_color$; padding: $form_padding$px 0px;" data-vacancy-id="$vacancy_id$" data-status-id="$status_id$">
+    <div class="hr-form__content">    
+        <div class="hr-form__group">
+            <label class="hr-form__label" style="color: $label_color$">E-mail или другой контакт</label>
+            <input type="text" name="contact" class="hr-form__input" style="border-color: $button_bg_color$">
+        </div>
+        <div class="hr-form__group">
+            <label class="hr-form__label" style="color: $label_color$">Резюме</label>
+            <div class="hr-form__upload">
+                <button class="hr-form__button" style="background-color: $button_bg_color$; border-color: $button_bg_color$">Загрузить файл</button>
+                <input type="file" name="file" class="hr-form-file" />
+            </div>
+        </div>
+        <div class="hr-form__group">
+            <input type="button" value="Отправить" class="hr-form__button hr-form-submit" style="background-color: $button_bg_color$; border-color: $button_bg_color$">
+        </div>
+    </div>
+    <div class="hr-form__notification" style="color: $label_color$">
+        Загрузите файл с резюме и укажите контактные данные.
+    </div>
+    <div class="hr-form__message">
+        <div class="hr-form__loader"></div>
+        <span class="hr-form__success" style="color: $label_color$">
+            Резюме успешно отправлено! Скоро выйдем на связь.
+        </span>
+        <span class="hr-form__error" style="color: $label_color$">
+            Прости, друг, хоббиты, которые должны были отнести твоё резюме в нашу CRM ушли на обед, не отвечают.
+            Мы уже бежим исправлять ситуацию, но пока, пожалуйста, отправь своё резюме вручную на <a href="mailto:welcome@flant.com">welcome@flant.com</a>.
+        </span>
+    </div>
+</form></script>
+<script src="index.js"></script>
+</body>
+
+</html>
+
