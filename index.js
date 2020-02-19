@@ -1,4 +1,11 @@
 var api_prefix = 'https://job-api.flant.ru';
+var vacancy_list = {
+    '2472372': 'DevOps',
+    '2498531': 'L1',
+    '2500960': 'Junior Manager',
+    '2500959': 'Manager'
+}
+
 function prepareApplicantData(data, $form) {    
     var applicantData;
     console.log(data);
@@ -59,9 +66,12 @@ function handleFormError($form, m, e) {
     if (typeof Sentry !== 'undefined') {
         Sentry.configureScope(function(scope) {
             scope.setExtra('Contact', $form.find('[name="contact"]').val());
-            e && scope.setExtra('Context', JSON.stringify(e));            
+            m && scope.setExtra('Reason', m);
+            e && scope.setExtra('Context', JSON.stringify(e));
         });
-        Sentry.captureMessage('HR Form: ' + m);
+        var vacancy_id = $form.data('vacancy-id');
+        var message = '[Заявка' + (vacancy_id != '' ? ' ' + vacancy_list[vacancy_id] : '') + '] ' + $form.find('[name="contact"]').val();
+        Sentry.captureMessage(message);
     }        
 }
 
@@ -126,7 +136,7 @@ function sendForm($form) {
                                         console.log(vacancyResponse);
                                     },
                                     error: function(vacancyResponse) {
-                                        handleFormError($form, 'vacancy failed', vacancyResponse)
+                                        //handleFormError($form, 'vacancy failed', vacancyResponse)
                                     }
                                 });
                             }
