@@ -58,10 +58,10 @@ function handleFormError($form, m, e) {
     e && console.log(e);
     if (typeof Sentry !== 'undefined') {
         Sentry.configureScope(function(scope) {
-            m && scope.setExtra('Report', m);
             scope.setExtra('Contact', $form.find('[name="contact"]').val());
+            e && scope.setExtra('Context', JSON.stringify(e));            
         });
-        e && Sentry.captureException(e);
+        Sentry.captureMessage('HR Form: ' + m);
     }        
 }
 
